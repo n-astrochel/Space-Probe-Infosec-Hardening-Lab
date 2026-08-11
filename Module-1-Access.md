@@ -47,7 +47,7 @@ sudo useradd -m -g scientists -c "Astrophysicist Lana Veyr" l_veyr
 ```
 
 ### Step 2.2: Directory Creation and Access Control List (ACL) Application
-Enforcing the security matrix using native Linux `chown` and `chmod` utilities to achieve a strict `770` permissions profile:
+We enforce a strict `2770` permissions profile using native Linux `chown` and `chmod` utilities. 
 
 ```bash
 sudo mkdir -p /space/astrophysics
@@ -56,20 +56,22 @@ sudo mkdir -p /space/propulsion
 sudo chown root:scientists /space/astrophysics
 sudo chown root:engineers /space/propulsion
 
-sudo chmod 770 /space/astrophysics
-sudo chmod 770 /space/propulsion
+# Applying 2770 (Enforcing SGID for collaborative space environments)
+sudo chmod 2770 /space/astrophysics
+sudo chmod 2770 /space/propulsion
 ```
 
-### Step 2.3: System Verification (Verification Artifacts)
-To verify that the operating system has accurately applied the cryptographic and logical boundary policies, we audit the directory tree structures.
+> **Design Justification (The "2" Bit / SGID):** The leading `2` activates the **Set Group ID (SGID)** bit. In deep-space operations where scientists must collaborate seamlessly, SGID ensures that any new file created inside `/space/astrophysics/` automatically inherits the `scientists` group ownership (instead of the personal group of the user who created it). This prevents files created by `r_grace` from being locked as read-only for `l_veyr`, allowing secure, shared scientific analysis.
 
+### Step 2.3: System Verification (Verification Artifacts)
 *   Command used: `ls -ld /space/astrophysics /space/propulsion`
 
 ```text
-drwxrwx---. 2 root scientists 6 Aug  5 16:25 /space/astrophysics
-drwxrwx---. 2 root engineers  6 Aug  5 16:25 /space/propulsion
-
+drwxrws---. 2 root scientists 6 Aug 11 23:45 /space/astrophysics
+drwxrws---. 2 root engineers  6 Aug 11 23:45 /space/propulsion
 ```
+*(Notice how the traditional `x` execution flag for the group is replaced with an `s`—this verifies that the SGID bit is active).*
+
 
 ---
 
@@ -82,15 +84,6 @@ drwxrwx---. 2 root engineers  6 Aug  5 16:25 /space/propulsion
 [r_grace@black-meridian ~]\$ ls -la /space/propulsion
 ls: cannot open directory '/space/propulsion': Permission denied
 ```
-
-
-
-
-
-
-
-
-
 
 
 
