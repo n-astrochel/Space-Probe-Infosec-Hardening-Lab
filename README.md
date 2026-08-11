@@ -1,6 +1,6 @@
-# 🪐 Project Hail Mary: Space Probe Infosec Hardening Lab
+# Space Probe Infosec Hardening Lab
 
-Welcome to the security architecture portfolio for the **Project Hail Mary** deep-space research probe. 
+Welcome to the security architecture portfolio for a deep-space research probe. 
 
 ## Project Overview
 This repository serves as a hands-on cybersecurity home lab built on **CentOS Linux**. Conceptually, this system simulates the onboard computer of an interstellar probe orbiting a black hole. 
@@ -11,7 +11,7 @@ The goal of this project is to progressively implement core cybersecurity princi
 
 ## Lab Architecture
 The infrastructure consists of two isolated virtual environments:
-*   **Node 1: `Hermes-Core` (CentOS)** — The main onboard computer of the probe. This is the target for security hardening.
+*   **Node 1: `Black-Meridian` (CentOS)** — The main onboard computer of the probe. This is the target for security hardening.
 *   **Node 2: `Earth-Mission-Control` (CentOS/Kali)** — The ground station used for monitoring, log analysis, and authorized security testing.
 
 ---
