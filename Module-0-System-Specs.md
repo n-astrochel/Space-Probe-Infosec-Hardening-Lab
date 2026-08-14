@@ -1,3 +1,12 @@
+### Infrastructure Baseline Specifications
+*   **Hypervisor:** VMware Fusion (Apple Silicon Architecture)
+*   **Guest OS:** CentOS Stream 9 (64-bit ARM)
+*   **Installation Profile:** Minimal Install (CLI Only, No GUI for maximum security baseline)
+*   **Virtual Hardware Resources:** 2 vCPUs, 2 GB RAM, 20 GB HDD
+*   **Network Configuration:** NAT (Network Address Translation)
+
+---
+
 ### System Architecture Check
 Before running any security modifications, we verify the underlying kernel and architecture.
 
@@ -26,3 +35,4 @@ REDHAT_SUPPORT_PRODUCT="Red Hat Enterprise Linux 9"
 REDHAT_SUPPORT_PRODUCT_VERSION="CentOS Stream"
 
 ```
+
