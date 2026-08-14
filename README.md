@@ -1,24 +1,28 @@
-# Space Probe Infosec Hardening Lab
+# 🪐 Space Probe Infosec Hardening Lab
 
 Welcome to the security architecture portfolio for a deep-space research probe. 
 
 ## Project Overview
 This repository serves as a hands-on cybersecurity home lab built on **CentOS Linux**. Conceptually, this system simulates the onboard computer of an interstellar probe orbiting a black hole. 
 
-The goal of this project is to progressively implement core cybersecurity principles (aligned with the Google Cybersecurity Certificate) on an enterprise-grade Linux infrastructure, balancing **Blue Team** (defense & architecture) and **Red Team** (security auditing) methodologies.
+## Project Objective
+The goal of this initiative is to architect, configure, and validate an enterprise-grade Linux security baseline from scratch using a conceptual deep-space business logic. This project shifts away from abstract theoretical learning by enforcing hands-on **Blue Team** (systems hardening, identity management, network containment) and **Red Team** (compliance auditing, access-violation testing) methodologies guided by the **NIST Cybersecurity Framework (CSF) v2.0** [NIST].
 
 ---
-
 ## Lab Architecture
-The infrastructure consists of two isolated virtual environments:
-*   **Node 1: `Black-Meridian` (CentOS)** — The main onboard computer of the probe. This is the target for security hardening.
-*   **Node 2: `Earth-Mission-Control` (CentOS/Kali)** — The ground station used for monitoring, log analysis, and authorized security testing.
+The infrastructure establishes a hybrid management perimeter consisting of two primary operational nodes:
+*   **Node 1: `Black-Meridian` (CentOS Stream 9)** — The target virtual machine deployment representing the probe's onboard computer. This node is the direct focus of the OS hardening and security policies.
+*   **Node 2: `Mission Control` (macOS Host Terminal)** — The dedicated physical hardware workstation representing Earth ground control. Communication is established remotely over an isolated virtual network bridge via cryptographic SSH channels.
 
 ---
+## Lab Documentation Directory
 
-### Infrastructure Baseline Specifications
-*   **Hypervisor:** VMware Fusion (Apple Silicon Architecture)
-*   **Guest OS:** CentOS Stream 9 (64-bit ARM)
-*   **Installation Profile:** Minimal Install (CLI Only, No GUI for maximum security baseline)
-*   **Virtual Hardware Resources:** 2 vCPUs, 2 GB RAM, 20 GB HDD
-*   **Network Configuration:** NAT (Network Address Translation)
+To maintain an architectural timeline, the project is structured into sequential engineering modules. Click on any module to review the explicit threat models, implementation commands, and validation logs:
+
+| Registry Index | Module Documentation File | Security Domain Focus (NIST CSF Alignment) | Status |
+| :---: | :--- | :--- | :---: |
+| **0** | [📄 Module 0: Infrastructure Deployment](./Module-0-System-Specs.md) | Base Image Sanitization & Environmental Verification | ✅ Complete |
+| **1** | [📄 Module 1: Identity & Access Management](./Module-1-IAM.md) | Role-Based Access Control (RBAC) & Collaborative SGID Permissions | ✅ Complete |
+| **2** | [📄 Module 2: System Hardening & Sudo Isolation](./Module-2-Hardening.md) | Secure Remote Management (SSH), Root Exclusion, and Sudo Controls | ✅ Complete |
+| **3** | [📄 Module 3: Network Filtration & Perimeter Defense](./Module-3-Network.md) | Default-Deny Cloaking, Firewalld Drop Containment, and ICMP Auditing [NIST] | ✅ Complete |
+
