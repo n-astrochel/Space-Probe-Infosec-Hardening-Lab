@@ -13,7 +13,7 @@ To safeguard the system kernel, we must restrict administrative superpowers (`su
 1.  **Threat (Privilege Escalation):** If a regular crew account is compromised, an adversary might attempt to run arbitrary system updates or erase logs.
     *   *Mitigation:* Use `visudo` to bind users to strict, explicitly allowed commands.
 2.  **Threat (Brute-Force & Credential Spraying):** Automated malicious scans constantly target default SSH Port 22 and attempt to guess passwords.
-    *   *Mitigation:* Disable direct root network login entirely and migrate communication to a non-standard custom port.
+    *   *Mitigation:* Disable direct root network login entirely and migrate communication to a non-standard port (this only reduces automated scan noise).
 
 ---
 
@@ -41,7 +41,7 @@ Sorry, user o_ilyukhina is not allowed to execute '/bin/cat /etc/shadow' as root
 
 ---
 
-### Step 2.2: Hardening the SSH Daemon Perimeters
+### Step 2.2: Hardening the SSH Daemon
 We secure the active network listening door by editing `/etc/ssh/sshd_config`.
 
 1.  **Port Translation:** Shifted from default Port `22` to custom deep-space channel `2222`.
@@ -57,7 +57,7 @@ sudo systemctl restart sshd
 ```bash
 ssh root@<PROBE_IP_ADDRESS> -p 2222
 ```
-*Verification Artifact (Network Boundary Block):*
+*Verification Artifact (Login Rejected):*
 ```text
 Permission denied, please try again.
 ```
@@ -65,7 +65,7 @@ Permission denied, please try again.
 ---
 
 ### Step 2.3: Perimeter Lockdown (Closing Legacy Port 22)
-To ensure the defense-in-depth model is functional, opening the new custom channel (`2222`) must be immediately followed by decommissioning and closing the default legacy entry point (`Port 22`). Leaving Port 22 open in the network filter negates the entire purpose of port migration and allows adversaries to continue brute-force scanning.
+After opening the new custom channel (`2222`) must be immediately followed by decommissioning and closing the default legacy entry point (`Port 22`). Leaving Port 22 open in the network filter negates the entire purpose of port migration and allows adversaries to continue brute-force scanning.
 
 *   Commands used to replace the firewall rules and reload the perimeter tables:
 ```bash
@@ -84,7 +84,7 @@ sudo firewall-cmd --reload
 ```bash
 ssh admin_astrochel@172.16.108.128 -p 22
 ```
-*Verification Artifact (Network Filter Rule Deflected Successfully):*
+*Verification Artifact (Connection Refused):*
 ```text
 ssh: connect to host 172.16.108.128 port 22: Connection refused
 ```
@@ -93,7 +93,7 @@ ssh: connect to host 172.16.108.128 port 22: Connection refused
 
 ## 3. Engineering Troubleshooting & Infrastructure Fixes
 
-During the hardening process, several enterprise-level system blockages were encountered. This section documents the operational issues and the technical modifications applied to resolve them.
+During the hardening process, several issues came up. This section documents the operational issues and the technical modifications applied to resolve them.
 
  ### 📌 Issue 3.1: Text Editor Navigation Malfunction & Terminal Environment Instability (CentOS aarch64)
 
@@ -133,4 +133,4 @@ The hardening modifications are fully synchronized. The probe has migrated its c
 
 
 ## Conclusion
-Module 2 is fully operational. The master backdoor is locked, root network access is severed, and engineering access is strictly partitioned. The probe is ready for **Module 3: Network Filtration & Firewall**.
+Module 2 is fully operational. Root SSH login is disabled, SSH runs on port 2222, and engineer sudo access is limited (see Known Limitations in README). The probe is ready for **Module 3: Network Filtration & Firewall**.
