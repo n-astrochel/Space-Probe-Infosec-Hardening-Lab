@@ -1,6 +1,6 @@
 # Module 1: Identity & Access Management (IAM)
 
-This module implements role-based access control (RBAC) and data isolation for the **Black-Meridian** deep-space probe onboard computer, aligned with the **NIST Cybersecurity Framework (CSF) v2.0** (specifically the **Identify (ID.AM)** and **Protect (PR.AC)** functions).
+This module implements role-based access control (RBAC) and data isolation for the **Black-Meridian** deep-space probe onboard computer, aligned with the **NIST Cybersecurity Framework (CSF) v2.0** (specifically the **Identify (ID.AM)** and **Protect (PR.AA)** functions).
 
 ---
 
@@ -24,7 +24,7 @@ We map the mission-critical human resources (crew members) and data assets orbit
 
 ---
 
-### Function: PROTECT (PR.AC - Access Control)
+### Function: PROTECT (PR.AA)
 To mitigate the risk of internal accidental data tampering or credential hijacking, the following access control policies are defined:
 *   **Policy 1 (Least Privilege):** Scientific crew must have zero write or read access to critical flight propulsion systems. Engineering crew must be isolated from scientific research data.
 *   **Policy 2 (Role Isolation):** Administrative tasks are executed exclusively via authorized accounts using `sudo`. No crew member has direct access to the `root` environment.
