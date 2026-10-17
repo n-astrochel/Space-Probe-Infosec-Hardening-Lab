@@ -46,7 +46,7 @@ sudo useradd -m -g scientists -c "Scientist Ryland Grace" r_grace
 sudo useradd -m -g scientists -c "Astrophysicist Lana Veyr" l_veyr
 ```
 
-### Step 2.2: Directory Creation and Access Control List (ACL) Application
+### Step 2.2: Directory Creation and Permissions
 We enforce a strict `2770` permissions profile using native Linux `chown` and `chmod` utilities. 
 
 ```bash
