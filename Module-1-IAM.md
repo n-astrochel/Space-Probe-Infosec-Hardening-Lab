@@ -24,7 +24,7 @@ We map the mission-critical human resources (crew members) and data assets orbit
 
 ---
 
-### Function: PROTECT (PR.AA)
+### Function: PROTECT (PR.AA - Identity Management, Authentication, and Access Control)
 To mitigate the risk of internal accidental data tampering or credential hijacking, the following access control policies are defined:
 *   **Policy 1 (Least Privilege):** Scientific crew must have zero write or read access to critical flight propulsion systems. Engineering crew must be isolated from scientific research data.
 *   **Policy 2 (Role Isolation):** Administrative tasks are executed exclusively via authorized accounts using `sudo`. No crew member has direct access to the `root` environment.
