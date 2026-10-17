@@ -26,3 +26,23 @@ To maintain an architectural timeline, the project is structured into sequential
 | **2** | [📄 Module 2: System Hardening & Sudo Isolation](./Module-2-Hardening.md) | Secure Remote Management (SSH), Root Exclusion, and Sudo Controls | ✅ Complete |
 | **3** | [📄 Module 3: Network Filtration & Perimeter Defense](./Module-3-Network.md) | Default-Deny Cloaking, Firewalld Drop Containment, and ICMP Auditing | ✅ Complete |
 
+---
+## Known Limitations & Notes
+
+- **Sudo rule is broader than necessary.** `journalctl` is allowed with any
+  arguments rather than pinned ones. On this VM a pager shell escape was blocked
+  (the pager refused external commands), but a tighter rule would still be better:
+  fixed arguments plus a non-interactive pager (e.g. --no-pager).
+- **`systemctl restart network` does nothing on this system.** CentOS Stream 9
+  uses NetworkManager, so there is no `network` service; the rule should target
+  `NetworkManager` instead.
+- **Port change reduces automated scan noise; it is not a strong control.**
+  SSH on 2222 is still discoverable with a port scan (e.g. nmap -Pn). The real
+  protections are disabling root login and the firewall policy.
+- **Drop zone hides the host from ping, not from port scans.**
+
+## Learning Approach
+
+This was my first Linux hardening lab. I used an AI assistant as a tutor to
+understand concepts and debug errors, and ran every command myself on my own VM.
+
