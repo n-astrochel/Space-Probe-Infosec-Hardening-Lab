@@ -80,8 +80,8 @@ drwxrws---. 2 root engineers  6 Aug 11 23:45 /space/propulsion
 *   **Test Condition:** Attempting to browse the propulsion directory while authenticated as scientist `r_grace`.
 
 ```text
-[root@black-meridian ~]# su - r_grace
-[r_grace@black-meridian ~]\$ ls -la /space/propulsion
+[root@black-meridian ~]$ su - r_grace
+[r_grace@black-meridian ~]$ ls -la /space/propulsion
 ls: cannot open directory '/space/propulsion': Permission denied
 ```
 
