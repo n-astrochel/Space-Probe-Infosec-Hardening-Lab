@@ -1,4 +1,4 @@
-# Module 3: Network Filtration, Perimeter Defense & Stealth Mode
+# Module 3: Network Filtration, Perimeter Defense & ICMP Testing
 
 This module implements global network packet filtering, perimeter lockdown, and host-reconnaissance mitigation for the **Black-Meridian** probe onboard computer. All controls are strictly aligned with the **NIST Cybersecurity Framework (CSF) v2.0** under the **Protect (PR.IR - Technology Infrastructure Resilience)** function.
 
@@ -13,7 +13,7 @@ To minimize the communication attack surface of the interstellar probe, the prim
 1.  **Threat (Network Reconnaissance / Port Scanning):** Adversaries or automated malicious scanning bots use specialized tools (such as `nmap`) to discover active host nodes, map topologies, and identify open entry ports.
     *   *Mitigation:* Migrate the main network interface to the strictest native Linux filtering profile (`drop` zone) to silently discard unauthorized packets without returning metadata.
 2.  **Threat (Host Tracking via ICMP):** Threat actors transmit automated network pings (ICMP Echo Requests) to verify if the machine is powered on, online, and responsive.
-    *   *Mitigation:* Enforce complete silence against ICMP packets, forcing the host to mimic a completely offline or non-existent device.
+    *   *Mitigation:* Enforce complete silence against ICMP packets, so the host does not reply to ping.
 
 ---
 
@@ -46,9 +46,9 @@ drop
 
 ---
 
-## 3. Advanced Troubleshooting: The ICMP Information Disclosure Fix
+## 3. Troubleshooting: The ICMP Information Disclosure Fix
 
-During the final perimeter hardening phase, a critical logical flaw was discovered and remediated regarding the configuration of ICMP (ping) traffic.
+During the final perimeter hardening phase, a misconfiguration was found and fixed regarding the configuration of ICMP (ping) traffic.
 
 ### Issue: Passive Information Disclosure via "Friendly" Filters
 *   **Symptom:** An initial policy was applied using the command `sudo firewall-cmd --zone=drop --add-icmp-block=echo-request --permanent` to restrict pings. However, testing the connection from Mission Control (macOS Host Terminal) resulted in the following live output:
@@ -57,7 +57,7 @@ During the final perimeter hardening phase, a critical logical flaw was discover
 92 bytes from 172.16.108.128: Communication prohibited by filter
 ```
 *   **Root Cause Analysis:** The `--add-icmp-block` flag forces the Linux kernel to send an active administrative rejection packet (`ICMP Type 3 Code 13 - Communication Administratively Prohibited`) back to the sender. In a threat modeling scenario, **this response actively leaks information**. It proves to an attacker that a live, responsive server exists at that IP address, despite the active `drop` zone policy.
-*   **Resolution (True Stealth Mode Architecture):** To transition the probe into absolute silence, the verbose ICMP block rule was purged. By removing the explicit block rule, the system defaults back to the raw, unadulterated nature of the `drop` zone—silently swallowing packets into a void without issuing any return metadata.
+*   **Resolution:** Removed the ICMP block rule, so the drop zone silently discards ping requests without replying.
 
 *   Command executed to remediate the leak:
 ```bash
@@ -80,13 +80,13 @@ Request timeout for icmp_seq 3
 --- 172.16.108.128 ping statistics ---
 4 packets transmitted, 0 packets received, 100.0% packet loss
 ```
-*(Success Profile: The `Communication prohibited by filter` leakage is eradicated. The host terminal experiences 100% silent packet drops and infinite request timeouts, proving the Black-Meridian probe is completely masked from hostile network discovery scans).*
+*(Success Profile: The `Communication prohibited by filter` leakage is eradicated. The host no longer answers ping. SSH on port 2222 is still reachable by design, so a port scan (e.g. nmap -Pn) can still find the host.).*
 
 ---
 
 ## Final Project Conclusion
-The core **Linux Security Foundation (LSF)** framework for the **Black-Meridian** deep-space exploration probe is successfully deployed:
+Lab summary:
 *   **Module 0:** Base environmental sanitization and remote access channel optimization (SSH terminal deployment).
 *   **Module 1:** Strict separation of duties and data isolation via role-based access control (RBAC) using a `2770` SGID collaborative matrix.
 *   **Module 2:** System service hardening via root network account exclusion, port transposition (`22` to `2222`), and granular limited `sudo` policies.
-*   **Module 3:** Total network cloaking through automated packet deletion (Drop zone perimeter) and stealth configuration auditing.
+*   **Module 3:** Drop-zone firewall that silently discards unsolicited traffic, plus ICMP testing from the host. 
