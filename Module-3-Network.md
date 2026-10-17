@@ -1,6 +1,6 @@
 # Module 3: Network Filtration, Perimeter Defense & Stealth Mode
 
-This module implements global network packet filtering, perimeter lockdown, and host-reconnaissance mitigation for the **Black-Meridian** probe onboard computer. All controls are strictly aligned with the **NIST Cybersecurity Framework (CSF) v2.0** under the **Protect (PR.PS - Platform Security)** function.
+This module implements global network packet filtering, perimeter lockdown, and host-reconnaissance mitigation for the **Black-Meridian** probe onboard computer. All controls are strictly aligned with the **NIST Cybersecurity Framework (CSF) v2.0** under the **Protect (PR.IR - Technology Infrastructure Resilience)** function.
 
 ---
 
