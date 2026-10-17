@@ -1,12 +1,12 @@
 # Module 2: SSH Network Hardening & Privilege Elevation
 
-This module enforces access controls on administrative utilities and locks down the primary network entryway of the **Black-Meridian** probe, aligning with the **NIST Cybersecurity Framework (CSF) v2.0** under the **Protect (PR.PT - Protective Technology)** function.
+This module enforces access controls on administrative utilities and locks down the primary network entryway of the **Black-Meridian** probe, aligning with the **NIST Cybersecurity Framework (CSF) v2.0** under the **Protect (PR.PS - Platform Security)** function.
 
 ---
 
 ## 1. NIST Framework Alignment
 
-### Function: PROTECT (PR.PT - Protective Technology)
+### Function: PROTECT (PR.PS - Platform Security)
 To safeguard the system kernel, we must restrict administrative superpowers (`sudo`) and eliminate weak default settings on remote network management channels.
 
 #### Threat Modeling & Policy Constraints
