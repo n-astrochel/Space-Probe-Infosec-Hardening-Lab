@@ -70,7 +70,7 @@ sudo firewall-cmd --reload
 *   Command executed: `ping 172.16.108.128`
 
 ```text
-[admin_astrochel@mission-control ~]\$ ping 172.16.108.128
+[admin_astrochel@mission-control ~]$ ping 172.16.108.128
 PING 172.16.108.128 (172.16.108.128): 56 data bytes
 Request timeout for icmp_seq 0
 Request timeout for icmp_seq 1
